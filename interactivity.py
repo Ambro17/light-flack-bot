@@ -4,7 +4,7 @@ from slack.web.client import WebClient
 import json
 
 bp = Blueprint('interactive', __name__)
-roomsbot = 'xoxb-548583362998-891180035635-ZSCbzL8TZYQXAd6VMzRpKMRU'
+roomsbot = '1234'
 OviBot = WebClient(roomsbot)
 
 
