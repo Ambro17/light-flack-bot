@@ -3,7 +3,7 @@ import threading
 import time
 import uuid
 
-from flask import Blueprint, abort, current_app, g, request
+from flask import Blueprint, abort, current_app, request
 from werkzeug.exceptions import HTTPException, InternalServerError
 from flask.helpers import url_for
 
@@ -16,7 +16,7 @@ def async_task(f):
     """
     This decorator transforms a sync route to asynchronous by running it
     in a background thread.
-    See: https://github.com/miguelgrinberg/flack/commit/0c372464b341a2df60ef8d93bdca2001009a42b5#diff-af29c7f310450880dcc634c68dbaf433
+    See: https://github.com/miguelgrinberg/flack/commit/0c372464b341a2df60ef8d93bdca2001009a42b5#diff-af29c7f310450880dcc634c68dbaf433  # noqa
     """
     @wraps(f)
     def wrapped(*args, **kwargs):
@@ -50,7 +50,7 @@ def async_task(f):
         tasks[uid] = {'task': task_thread}
         tasks[uid]['task'].start()
 
-        return '', 200, {'Location': url_for('tasks.get_status', id=uid)}
+        return '', 202, {'Location': url_for('tasks.get_status', id=uid)}
     return wrapped
 
 

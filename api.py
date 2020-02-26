@@ -36,140 +36,140 @@ def rate_text():
 def rate_modal():
     """Show slack modal"""
     rate_popup = {
-  "type": "modal",
-  "title": {
-    "type": "plain_text",
-    "text": "Onattended",
-    "emoji": True
-  },
-  "submit": {
-    "type": "plain_text",
-    "text": "Run Plan",
-    "emoji": True
-  },
-  "close": {
-    "type": "plain_text",
-    "text": "Cancel",
-    "emoji": True
-  },
-  "blocks": [
-    {
-      "type": "section",
-      "text": {
-        "type": "mrkdwn",
-        "text": "*Hi <fakelink.toUser.com|@Ambro>!* How would you like your *RATE* recipe"
-      }
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "block_id": "source",
-      "type": "input",
-      "element": {
-        "type": "static_select",
-        "placeholder": {
-          "type": "plain_text",
-          "text": "Choose installation source",
-          "emoji": True
-        },
-        "action_id": "source_action",
-        "options": [
-          {
-            "text": {
-              "text": "Nightly",
-              "type": "plain_text"
-            },
-            "value": "nightly"
-          },
-          {
-            "text": {
-              "text": "Staging",
-              "type": "plain_text"
-            },
-            "value": "staging"
+      "type": "modal",
+      "title": {
+        "type": "plain_text",
+        "text": "Onattended",
+        "emoji": True
+      },
+      "submit": {
+        "type": "plain_text",
+        "text": "Run Plan",
+        "emoji": True
+      },
+      "close": {
+        "type": "plain_text",
+        "text": "Cancel",
+        "emoji": True
+      },
+      "blocks": [
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "*Hi <fakelink.toUser.com|@Ambro>!* How would you like your *RATE* recipe"
           }
-        ]
-      },
-      "label": {
-        "type": "plain_text",
-        "text": ":gear:  Install from",
-        "emoji": True
-      }
-    },
-    {
-      "block_id": "post_install",
-      "type": "input",
-      "element": {
-        "type": "static_select",
-        "placeholder": {
-          "type": "plain_text",
-          "text": "What?",
-          "emoji": True
         },
-        "action_id": "post_install_action",
-        "options": [
-          {
-            "text": {
-              "text": "Run Common Setup",
-              "type": "plain_text"
+        {
+          "type": "divider"
+        },
+        {
+          "block_id": "source",
+          "type": "input",
+          "element": {
+            "type": "static_select",
+            "placeholder": {
+              "type": "plain_text",
+              "text": "Choose installation source",
+              "emoji": True
             },
-            "value": "common-setup"
+            "action_id": "source_action",
+            "options": [
+              {
+                "text": {
+                  "text": "Nightly",
+                  "type": "plain_text"
+                },
+                "value": "nightly"
+              },
+              {
+                "text": {
+                  "text": "Staging",
+                  "type": "plain_text"
+                },
+                "value": "staging"
+              }
+            ]
           },
-          {
-            "text": {
-              "text": "Do Nothing",
-              "type": "plain_text"
-            },
-            "value": "nothing"
+          "label": {
+            "type": "plain_text",
+            "text": ":gear:  Install from",
+            "emoji": True
           }
-        ]
-      },
-      "label": {
-        "type": "plain_text",
-        "text": ":wrench:  After installation do",
-        "emoji": True
-      }
-    },
-    {
-      "type": "divider"
-    },
-    {
-      "type": "input",
-      "block_id": "console",
-      "element": {
-        "type": "plain_text_input",
-        "placeholder": {
-          "type": "plain_text",
-          "text": "Enter your appliance hostname"
         },
-        "action_id": "console_name"
-      },
-      "label": {
-        "type": "plain_text",
-        "text": ":computer: Console",
-        "emoji": True
-      }
-    },
-    {
-      "type": "input",
-      "block_id": "sensor",
-      "element": {
-        "type": "plain_text_input",
-        "placeholder": {
-          "type": "plain_text",
-          "text": "Enter your appliance hostname"
+        {
+          "block_id": "post_install",
+          "type": "input",
+          "element": {
+            "type": "static_select",
+            "placeholder": {
+              "type": "plain_text",
+              "text": "What?",
+              "emoji": True
+            },
+            "action_id": "post_install_action",
+            "options": [
+              {
+                "text": {
+                  "text": "Run Common Setup",
+                  "type": "plain_text"
+                },
+                "value": "common-setup"
+              },
+              {
+                "text": {
+                  "text": "Do Nothing",
+                  "type": "plain_text"
+                },
+                "value": "nothing"
+              }
+            ]
+          },
+          "label": {
+            "type": "plain_text",
+            "text": ":wrench:  After installation do",
+            "emoji": True
+          }
         },
-      	"action_id": "sensor_name"
-      },
-      "label": {
-        "type": "plain_text",
-        "text": ":desktop_computer: Sensor",
-        "emoji": True
-      }
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input",
+          "block_id": "console",
+          "element": {
+            "type": "plain_text_input",
+            "placeholder": {
+              "type": "plain_text",
+              "text": "Enter your appliance hostname"
+            },
+            "action_id": "console_name"
+          },
+          "label": {
+            "type": "plain_text",
+            "text": ":computer: Console",
+            "emoji": True
+          }
+        },
+        {
+          "type": "input",
+          "block_id": "sensor",
+          "element": {
+            "type": "plain_text_input",
+            "placeholder": {
+              "type": "plain_text",
+              "text": "Enter your appliance hostname"
+            },
+            "action_id": "sensor_name"
+          },
+          "label": {
+            "type": "plain_text",
+            "text": ":desktop_computer: Sensor",
+            "emoji": True
+          }
+        }
+      ]
     }
-  ]
-}
 
     OviBot.views_open(
         trigger_id=request.form['trigger_id'],
@@ -187,6 +187,7 @@ def respond(url, response, status=200):
         print('Something went wrong')
     else:
         print('Response sent succesfully for task X.')
+
 
 def sign(r):
     r.update({

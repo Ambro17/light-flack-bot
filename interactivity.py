@@ -12,13 +12,13 @@ OviBot = WebClient(roomsbot)
 def message_actions():
     print("Handling message action..")
     action = json.loads(request.form["payload"])
-    try:                                                                                                                              
+    try:
         return handle_action(action)
     except Exception as e:
         print('Something bad happened')
         print(f'{e!r}')
         return '', 200
-    
+
     return '', 200
 
 
