@@ -1,3 +1,4 @@
+import os
 import time
 
 import requests
@@ -8,8 +9,7 @@ from tasks import async_task
 
 
 main = Blueprint('main', __name__)
-roomsbot = '1234'
-OviBot = WebClient(roomsbot)
+OviBot = WebClient(os.getenv('BOT_TOKEN'))
 
 
 @main.route('/')
@@ -32,7 +32,6 @@ def rate_text():
 
 
 @main.route('/rate', methods=('GET', 'POST'))
-@async_task
 def rate_modal():
     """Show slack modal"""
     rate_popup = {
