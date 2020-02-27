@@ -33,6 +33,8 @@ def handle_action(action):
         plan = read_params(action['view']['state']['values'])
         print(plan)
 
+    print(action)
+
     return '', 200
 
 
