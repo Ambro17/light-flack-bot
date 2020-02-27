@@ -19,7 +19,7 @@ def async_task(f):
     See: https://github.com/miguelgrinberg/flack/commit/0c372464b341a2df60ef8d93bdca2001009a42b5#diff-af29c7f310450880dcc634c68dbaf433  # noqa
     """
     @wraps(f)
-    def wrapped(*args, **kwargs):
+    def launch_thread_and_respond(*args, **kwargs):
         def task(app, environ, **task_kwargs):
             with app.request_context(environ):
                 try:
@@ -51,7 +51,7 @@ def async_task(f):
         tasks[uid]['task'].start()
 
         return '', 202, {'Location': url_for('tasks.get_status', id=uid)}
-    return wrapped
+    return launch_thread_and_respond
 
 
 @tasks_bp.route('/status/<id>', methods=['GET'])
