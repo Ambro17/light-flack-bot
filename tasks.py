@@ -54,6 +54,45 @@ def async_task(f):
     return launch_thread_and_respond
 
 
+def async_func(f):
+    """
+    This decorator transforms a sync route to asynchronous by running it
+    in a background thread.
+    See: https://github.com/miguelgrinberg/flack/commit/0c372464b341a2df60ef8d93bdca2001009a42b5#diff-af29c7f310450880dcc634c68dbaf433  # noqa
+    """
+    @wraps(f)
+    def launch_thread_and_respond(*args, **kwargs):
+
+        def task(*args, **kwargs):
+            try:
+                # Pass response_url and context data.
+                tasks[uid]['func'] = f.__name__
+                tasks[uid]['result'] = f(*args, **kwargs)
+                print('Success!')
+            except HTTPException as e:
+                print(f'Http Exception {e!r}')
+                tasks[uid]['result'] = 'HTTP Exception'
+                tasks[uid]['error'] = f'{e!r}'
+            except Exception as e:
+                print(repr(e))
+                tasks[uid]['result'] = 'Unknown Error'
+                tasks[uid]['error'] = f'{e!r}'
+            finally:
+                # We record the time of the response, to help in garbage
+                # collecting old tasks
+                tasks[uid]['ended_at'] = time.time()
+
+        uid = uuid.uuid4().hex
+
+        task_thread = threading.Thread(target=task, args=args, kwargs=kwargs)
+        tasks[uid] = {'task': task_thread}
+        tasks[uid]['task'].start()
+
+        return '', 202, {'Location': url_for('tasks.get_status', id=uid)}
+
+    return launch_thread_and_respond
+
+
 @tasks_bp.route('/status/<id>', methods=['GET'])
 def get_status(id):
     """
@@ -68,3 +107,11 @@ def get_status(id):
     if 'result' not in task:
         return '', 202, {'Location': url_for('tasks.get_status', id=id)}
     return task['result']
+
+
+@tasks_bp.route('/status', methods=['GET'])
+def get_status():
+    return {
+        {k: v for k, v in task.items() if k in {'func', 'result', 'error', 'ended_at'}}
+        for task in tasks
+    }

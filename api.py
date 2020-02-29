@@ -23,6 +23,7 @@ def index():
 @main.route('/rate', methods=('GET', 'POST'))
 def rate_modal():
     """Show slack modal"""
+    username = request.form['user']['username'].replace('.', '_')
     rate_popup = {
         "type": "modal",
         "title": {
@@ -45,7 +46,7 @@ def rate_modal():
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*Hi <fakelink.toUser.com|@Ambro>!* How would you like your *RATE* recipe"
+                    "text": f"*Hi @{username}* How would you like your *RATE* recipe"
                 }
             },
             {
@@ -72,6 +73,13 @@ def rate_modal():
                         },
                         {
                             "text": {
+                                "text": "Staging",
+                                "type": "plain_text"
+                            },
+                            "value": "staging"
+                        },
+                        {
+                            "text": {
                                 "text": "Branch",
                                 "type": "plain_text"
                             },
@@ -79,11 +87,11 @@ def rate_modal():
                         },
                         {
                             "text": {
-                                "text": "Staging",
+                                "text": username,
                                 "type": "plain_text"
                             },
-                            "value": "staging"
-                        }
+                            "value": username
+                        },
                     ]
                 },
                 "label": {
